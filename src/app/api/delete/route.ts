@@ -25,22 +25,16 @@ export async function GET(req: NextRequest){
         }
 
         //Unoptimized
-        const sql = `START TRANSACTION;
+        const selectQuery = `SELECT * FROM games WHERE app_id = ? FOR UPDATE;`;
+        const deleteQuery = `DELETE FROM games WHERE app_id = ?;`;
 
-                    -- Set isolation level to REPEATABLE READ
-                    SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
-
-                    -- Lock the row to prevent others from modifying or deleting it while this transaction is active
-                    SELECT * FROM games WHERE app_id = ? FOR UPDATE;
-
-                    DELETE FROM games
-                    WHERE app_id = ?;
-
-                    COMMIT;`;
         const id = url.searchParams.get('id');
-
-        await dbConnection.query(sql,[id,id]);
-
+        await dbConnection.query("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;");
+        await dbConnection.query("START TRANSACTION;");
+        const rows = await dbConnection.query(selectQuery, [id]);
+        console.log(rows);
+        await dbConnection.query(deleteQuery, [id]);
+        await dbConnection.query("COMMIT;");
         return NextResponse.json({ message: 'Data deleted successfully' });
     }catch(error){
         console.log(error);

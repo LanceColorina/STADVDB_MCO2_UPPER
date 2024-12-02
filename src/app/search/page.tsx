@@ -1,9 +1,18 @@
 "use client"
 import { useState } from "react";
+interface Game {
+  app_id: number;
+  game_name: string;
+  header_image: string;
+  release_date: string;
+  price: number;
+  negative:number;
+  positive: number;
+}
 
 const GameSearchPage = () => {
   const [gameName, setGameName] = useState<string>(""); // State to store the game name input
-  const [gameData, setGameData] = useState<any | null>(null); // State to store fetched game data
+  const [gameData, setGameData] = useState<Game>(); // State to store fetched game data
   const [loading, setLoading] = useState<boolean>(false); // State to handle loading state
   const [error, setError] = useState<string | null>(null); // State to handle errors
 
@@ -16,20 +25,22 @@ const GameSearchPage = () => {
 
     setLoading(true);
     setError(null); // Clear any previous error
+    const databases = ["master", "lower", "upper"];
+    const selectedDb = databases[Math.floor(Math.random() * databases.length)];
 
     try {
-      const response = await fetch(`/api/endpoint?db=master&name=${name}`);
+      const response = await fetch(`/api/search?db=${selectedDb}&name=${name}`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch data.");
       }
 
       const data = await response.json();
-
+      console.log(data);
       if (data.error) {
         setError("Game not found.");
       } else {
-        setGameData(data);
+        setGameData(data[0]);
       }
     } catch (error: any) {
       setError(error.message);
@@ -44,7 +55,7 @@ const GameSearchPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8 bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen p-8 bg-gray-100 text-black">
       <h1 className="text-3xl font-bold mb-4 text-black">Search for a Game</h1>
 
       <form onSubmit={handleSearch} className="flex flex-col items-center w-full max-w-md">

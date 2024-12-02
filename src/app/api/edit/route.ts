@@ -25,15 +25,8 @@ export async function GET(req: NextRequest){
         }
 
         //Unoptimized
-        const sql = `START TRANSACTION;
-
-                    -- Set isolation level to REPEATABLE READ
-                    SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
-
-                    -- Lock the row to prevent other transactions from modifying it while this transaction is active
-                    SELECT * FROM games WHERE app_id = ? FOR UPDATE;
-
-                    UPDATE games
+        const sql = `SELECT * FROM games WHERE app_id = ? FOR UPDATE;`;
+        const editQuery = `UPDATE games
                     SET 
                         game_name = ?,
                         release_date = ?,
@@ -42,18 +35,19 @@ export async function GET(req: NextRequest){
                         positive = ?,
                         negative = ?
                     WHERE 
-                        app_id = ?;
-
-                    COMMIT;`;
+                        app_id = ?;`;
         const id = url.searchParams.get('id');
-        const name = url.searchParams.get('name');
-        const date = url.searchParams.get('date');
-        const price = url.searchParams.get('price');
-        const image = url.searchParams.get('image');
-        const positive = url.searchParams.get('positive');
-        const negative = url.searchParams.get('negative');
-
-        await dbConnection.query(sql,[id,name,date,price,image,positive,negative,id]);
+        const name = url.searchParams.get('name') || null;
+        const date = url.searchParams.get('date') || null;
+        const price = url.searchParams.get('price') || null;
+        const image = url.searchParams.get('image') || null;
+        const positive = url.searchParams.get('positive') || null;
+        const negative = url.searchParams.get('negative') || null;
+        await dbConnection.query("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;");
+        await dbConnection.query("START TRANSACTION;");
+        await dbConnection.query(sql,[id]);
+        await dbConnection.query(editQuery,[name,date,price,image,positive,negative,id]);
+        await dbConnection.query("COMMIT;");
 
 
         return NextResponse.json({ message: 'Data edited successfully' });

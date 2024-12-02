@@ -26,20 +26,14 @@ export async function GET(req: NextRequest){
 
 
         //Unoptimized
-        const sql = `START TRANSACTION;
-
-                    -- Set isolation level to REPEATABLE READ
-                    SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
-
-                    -- Lock the row in a shared mode to prevent modification but allow other reads
-                    SELECT * FROM games WHERE game_name = $(name) LOCK IN SHARE MODE;
-
-                    COMMIT;`;
+        const sql = `SELECT * FROM games WHERE app_id = ? LOCK IN SHARE MODE;`;
 
         const name = url.searchParams.get('name');
+        await dbConnection.query('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ');
+        await dbConnection.query('START TRANSACTION;');
         const game = await dbConnection.query(sql,[name]);
-
-        return NextResponse.json(game);
+        await dbConnection.query('COMMIT;');
+        return NextResponse.json(game[0]);
     }catch(error){
         console.log(error);
         return NextResponse.json({error: error})

@@ -8,16 +8,17 @@ export default function Home() {
   // Handler for form submission
   const handleDelete = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    const databases = ["master", "lower", "upper"];
+    const selectedDb = databases[Math.floor(Math.random() * databases.length)];
     // Prepare the URL with query parameters
     const queryParams = new URLSearchParams({
       id,
-      db: 'master' // You can change this to 'lower' or 'upper' depending on the database
+      db: selectedDb // You can change this to 'lower' or 'upper' depending on the database
     });
 
     try {
       // Send the request to the API
-      const response = await fetch(`/api/endpoint?${queryParams.toString()}`, {
+      const response = await fetch(`/api/delete?${queryParams.toString()}`, {
         method: 'GET',
       });
 
@@ -33,7 +34,7 @@ export default function Home() {
   };
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-gray-100">
+    <div className="text-black grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-gray-100">
       <h1 className="text-2xl font-semibold mb-4 text-black">Delete a Game</h1>
       
       <form onSubmit={handleDelete} className="grid gap-4 max-w-md w-full bg-white p-6 rounded-lg shadow-lg">
