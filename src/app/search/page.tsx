@@ -25,11 +25,10 @@ const GameSearchPage = () => {
 
     setLoading(true);
     setError(null); // Clear any previous error
-    const databases = ["master", "lower", "upper"];
-    const selectedDb = databases[Math.floor(Math.random() * databases.length)];
+
 
     try {
-      const response = await fetch(`/api/search?db=${selectedDb}&name=${name}`);
+      const response = await fetch(`/api/search?db=master&name=${name}`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch data.");

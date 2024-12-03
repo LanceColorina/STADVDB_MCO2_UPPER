@@ -10,15 +10,9 @@ export default function Home() {
 
 
   // States for checkboxes
-  const [master, setMaster] = useState(true);
-  const [lower, setLower] = useState(true);
-  const [upper, setUpper] = useState(true);
+
   const [responseMessage, setResponseMessage] = useState("");
-  useEffect(() => {
-    setMaster(true);
-    setLower(true);
-    setUpper(true);
-  }, []);
+
 
   // Handler for form submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -121,40 +115,7 @@ export default function Home() {
             required
           />
         </div>
-
-        <div className="flex flex-row mt-4 ">
-          <label className="text-black font-medium mb-2 mr-4">Select Databases:</label>
-
-          <label className="flex items-center gap-2 text-black mr-4">
-            <input
-              type="checkbox"
-              checked={master}
-              onChange={(e) => setMaster(e.target.checked)}
-              className="w-4 h-4 "
-            />
-            Master
-          </label>
-
-          <label className="flex items-center gap-2 text-black mr-4">
-            <input
-              type="checkbox"
-              checked={lower}
-              onChange={(e) => setLower(e.target.checked)}
-              className="w-4 h-4"
-            />
-            Lower
-          </label>
-
-          <label className="flex items-center gap-2 text-black">
-            <input
-              type="checkbox"
-              checked={upper}
-              onChange={(e) => setUpper(e.target.checked)}
-              className="w-4 h-4"
-            />
-            Upper
-          </label>
-        </div>
+        
 
         <button
           type="submit"

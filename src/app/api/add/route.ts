@@ -36,7 +36,6 @@ export async function GET(req: NextRequest) {
     const image = url.searchParams.get('image');
     const positive = 0;
     const negative = 0;
-
     // Check if all parameters are provided (for optional parameters, you might want to do additional validation)
     if (!id || !name || !date || !price || !image || !positive || !negative) {
       return NextResponse.json({ error: 'Missing required parameters' });
