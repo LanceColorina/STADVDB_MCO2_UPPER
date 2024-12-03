@@ -11,7 +11,7 @@ export default function Home() {
     // Prepare the URL with query parameters
     const queryParams = new URLSearchParams({
       id,
-      db: "master" // You can change this to 'lower' or 'upper' depending on the database
+      db: "upper" // You can change this to 'lower' or 'upper' depending on the database
     });
 
     try {
