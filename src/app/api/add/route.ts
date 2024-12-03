@@ -24,7 +24,6 @@ export async function GET(req: NextRequest) {
     }
 
     // SQL query
-    const sqllock = `SELECT * FROM games WHERE app_id = ? FOR UPDATE;`;
     const sql = `INSERT INTO games (app_id, game_name, release_date, price, header_image, positive, negative)
       VALUES (?, ?, ?, ?, ?, ?, ?);`;
 
@@ -41,7 +40,6 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Missing required parameters' });
     }
     await dbConnection.query("START TRANSACTION;");
-    await dbConnection.query(sqllock,[id]);
     // Ensure the values are correctly passed to the query (type conversion or validation may be needed)
     await dbConnection.query(sql, [id, name, date, price, image, positive, negative]);
     await dbConnection.query("COMMIT;");
