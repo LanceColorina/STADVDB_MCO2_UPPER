@@ -28,7 +28,7 @@ const GameSearchPage = () => {
 
 
     try {
-      const response = await fetch(`/api/search?db=master&name=${name}`);
+      const response = await fetch(`/api/search?db=upper&name=${name}`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch data.");
