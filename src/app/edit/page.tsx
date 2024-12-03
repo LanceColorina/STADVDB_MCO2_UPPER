@@ -22,7 +22,7 @@ export default function Home() {
       image,
       positive,
       negative,
-      db: 'master' // You can change this to 'lower' or 'upper' depending on the database
+      db: 'upper' // You can change this to 'lower' or 'upper' depending on the database
     });
 
     try {
