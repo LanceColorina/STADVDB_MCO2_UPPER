@@ -8,11 +8,6 @@ export default function Home() {
 
       {/* Buttons */}
       <div className="flex flex-col items-center gap-4 w-full max-w-md">
-        <Link href="/add" passHref>
-          <button className="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
-            Add Game
-          </button>
-        </Link>
         <Link href="/edit" passHref>
           <button className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
             Edit Game
