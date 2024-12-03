@@ -26,7 +26,7 @@ export async function GET(req: NextRequest){
 
 
         //Unoptimized
-        const sql = `SELECT * FROM games WHERE app_id = ? LOCK IN SHARE MODE;`;
+        const sql = `SELECT * FROM games WHERE app_id = ?;`;
 
         const name = url.searchParams.get('name');
         await dbConnection.query('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ');

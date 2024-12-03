@@ -56,14 +56,14 @@ const GameSearchPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8 bg-gray-100 text-black">
-      <h1 className="text-3xl font-bold mb-4 text-black">Search for a Game</h1>
+      <h1 className="text-3xl font-bold mb-4 text-black">Search for a Game </h1>
 
       <form onSubmit={handleSearch} className="flex flex-col items-center w-full max-w-md">
         <input
           type="text"
           value={gameName}
           onChange={(e) => setGameName(e.target.value)}
-          placeholder="Enter Game Name"
+          placeholder="Enter Game ID"
           className="w-full p-3 border border-gray-300 rounded-md mb-4"
         />
         <button
