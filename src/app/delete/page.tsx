@@ -8,12 +8,10 @@ export default function Home() {
   // Handler for form submission
   const handleDelete = async (e: React.FormEvent) => {
     e.preventDefault();
-    const databases = ["master", "lower", "upper"];
-    const selectedDb = databases[Math.floor(Math.random() * databases.length)];
     // Prepare the URL with query parameters
     const queryParams = new URLSearchParams({
       id,
-      db: selectedDb // You can change this to 'lower' or 'upper' depending on the database
+      db: "master" // You can change this to 'lower' or 'upper' depending on the database
     });
 
     try {
