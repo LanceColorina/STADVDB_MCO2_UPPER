@@ -9,7 +9,6 @@ test.describe.parallel('Search/edit - Simulating Two Users', () => {
       // Fill out the form with game details
       await page.fill('#id', '50');
       await page.fill('#name', 'Half-Life: Opposing Force');
-      await page.fill('#date', '1999-10-31');
       await page.fill('#price', '4.99');
       await page.fill('#image', 'https://example.com/halflife.jpg');
       await page.fill('#positive', '14333');
@@ -32,7 +31,6 @@ test.describe.parallel('Search/edit - Simulating Two Users', () => {
     // Fill out the form with game details
     await page.fill('#id', '50');
     await page.fill('#name', 'Half-Life: Opposing Force');
-    await page.fill('#date', '1999-10-31');
     await page.fill('#price', '4.99');
     await page.fill('#image', 'https://example.com/halflife.jpg');
     await page.fill('#positive', '14333');

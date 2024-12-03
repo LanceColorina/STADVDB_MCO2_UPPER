@@ -4,7 +4,6 @@ import { useState } from 'react';
 export default function Home() {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
-  const [date, setDate] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
   const [positive, setPositive] = useState('');
@@ -19,7 +18,6 @@ export default function Home() {
     const queryParams = new URLSearchParams({
       id,
       name,
-      date,
       price,
       image,
       positive,
@@ -68,18 +66,6 @@ export default function Home() {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="border border-gray-300 p-2 rounded"
-            required
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label htmlFor="date" className="text-black font-medium">Release Date</label>
-          <input
-            type="date"
-            id="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
             className="border border-gray-300 p-2 rounded"
             required
           />

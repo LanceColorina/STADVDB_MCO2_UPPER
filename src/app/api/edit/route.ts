@@ -29,7 +29,6 @@ export async function GET(req: NextRequest){
         const editQuery = `UPDATE games
                     SET 
                         game_name = ?,
-                        release_date = ?,
                         price = ?,
                         header_image = ?,
                         positive = ?,
@@ -38,7 +37,6 @@ export async function GET(req: NextRequest){
                         app_id = ?;`;
         const id = url.searchParams.get('id');
         const name = url.searchParams.get('name') || null;
-        const date = url.searchParams.get('date') || null;
         const price = url.searchParams.get('price') || null;
         const image = url.searchParams.get('image') || null;
         const positive = url.searchParams.get('positive') || null;
@@ -46,7 +44,7 @@ export async function GET(req: NextRequest){
         await dbConnection.query("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;");
         await dbConnection.query("START TRANSACTION;");
         await dbConnection.query(sql,[id]);
-        await dbConnection.query(editQuery,[name,date,price,image,positive,negative,id]);
+        await dbConnection.query(editQuery,[name,price,image,positive,negative,id]);
         await dbConnection.query("COMMIT;");
 
 
